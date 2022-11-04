@@ -1,4 +1,5 @@
 #Bowtie + HTSeq Analysis
+##NOTE: THIS CODE IS A WORK IN PROGRESS AND IS NOT ASSOCIATED WITH ANY CURRENT PUBLICATIONS.
 
 ##Bowtie2 is used to map reads to assembled transcriptomes.
 
