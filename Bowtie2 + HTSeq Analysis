@@ -1,0 +1,32 @@
+#Bowtie + HTSeq Analysis
+
+##Bowtie2 is used to map reads to assembled transcriptomes.
+
+###Run Bowtie2 on individual human read files:
+
+bowtie2 -p 6 -q -x /Volumes/tempoandmode/PFCEP/bowtie_index/Homo_sapiens.GRCh38 -U /Volumes/tempoandmode/htcf.wustl.edu/files/6X3qJmdV/FASTQ_FILES/WholeSampleSequences/human15.fastq -S /Volumes/tempoandmode/PFCEP/CerebellumProject_KR/bam_files/human/Human15.sam
+bowtie2 -p 6 -q -x /Volumes/tempoandmode/PFCEP/bowtie_index/Homo_sapiens.GRCh38 -U /Volumes/tempoandmode/htcf.wustl.edu/files/6X3qJmdV/FASTQ_FILES/WholeSampleSequences/human1.fastq -S /Volumes/tempoandmode/PFCEP/CerebellumProject_KR/bam_files/Human3.bam
+
+###Both of these produced great alignment statistics (about 95% of reads mapping to human annotated genome). 
+
+##Run Bowtie2 on Marmoset catenated read files:
+
+bowtie2 -p 6 -f -x /Volumes/tempoandmode/PFCEP/bowtie_index/Callithrix_jacchus.ASM275486v1 -U /Volumes/tempoandmode/htcf.wustl.edu/files/6X3qJmdV/FASTQ_FILES/WholeSampleSequences/Marmoset_Trinity_Files/Trinity.fasta -S /Volumes/tempoandmode/PFCEP/CerebellumProject_KR/bam_files/Marmoset1.bam
+
+##Produced 94% alignment score (great) against annotated genome. 
+
+#HTSeq allows us to count reads that map to specific features. In the case of our transcriptome data, we want to map reads to genes, that we have from annotated genome data (gtf files). 
+
+###Run HTSeq on SAM file from Bowtie2 mapping of entire human catenated read file:
+
+  ## 913,871 total reads
+
+  ## __no_feature	645953
+  ## __ambiguous	12019
+  ## __too_low_aQual	64125
+  ## __not_aligned	53170
+  ## __alignment_not_unique	0
+  
+## Run HTSeq on SAM files from Bowtie2 mapping of individual human sequences 
+
+htseq-count --format=sam --stranded=no --samout=human_counts15.sam /Volumes/tempoandmode/PFCEP/CerebellumProject_KR/bam_files/human/Human15.sam /Volumes/tempoandmode/PFCEP/homo_sapiens/gtf/homo_sapiens/Homo_sapiens.GRCh38.102.gtf 
